@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATCHÉ - AI Beauty & Style Matchmaker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #FAF9F7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #E7DFD8 0%, #FAF9F7 100%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #124E52;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #124E52;
+            color: white;
+            box-shadow: 0 8px 32px rgba(18, 78, 82, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(18, 78, 82, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #124E52;
+            border: 2px solid #124E52;
+        }
+
+        .btn-secondary:hover {
+            background: #124E52;
+            color: white;
+        }
+
+        /* Logo Hero (besar) */
+        .logo-hero {
+            width: 420px;
+            animation: floatLogo 4s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-hero:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes floatLogo {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1deg); }
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(6px) rotate(-1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 600;
+            color: #124E52;
+            margin-bottom: 80px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 60px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #124E52, #C6A85E);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #124E52;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 0;
+            background: #FAF9F7;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #124E52, #C6A85E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 24px;
+        }
+
+        /* Product Preview */
+        .products {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .product-card {
+            background: #FAF9F7;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            height: 240px;
+            background: linear-gradient(45deg, #E7DFD8, #F5F0EB);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #C6A85E;
+        }
+
+        .product-info {
+            padding: 24px;
+        }
+
+        .product-info h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #124E52;
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* AI Consultation */
+        .ai-consultation {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #124E52 0%, #0A3A3E 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .ai-consultation h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .ai-consultation p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 80px 0;
+            text-align: center;
+            background: #FAF9F7;
+        }
+
+        .social-proof p {
+            font-size: 1.5rem;
+            color: #124E52;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 120px 0;
+            text-align: center;
+            background: white;
+        }
+
+        .final-cta h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #124E52;
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 0 40px;
+            background: #124E52;
+            color: white;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #E7DFD8;
+        }
+
+        .footer a {
+            color: #E7DFD8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #C6A85E;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #A8B4B9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        
+
+        /* Reviews Section */
+        .reviews {
+            padding: 120px 0;
+            background: #FAF9F7;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .review-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .review-card h4 {
+            font-size: 1.2rem;
+            color: #124E52;
+            margin-bottom: 4px;
+        }
+
+        .review-card .role {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .stars {
+            color: #C6A85E;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .review-text {
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .pricing {
+            padding: 120px 0;
+            background: #FAF9F7;
+        }
+
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 30px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            width: 300px;
+            background: white;
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* CARD TENGAH (RECOMMENDED) */
+        .pricing-card.featured {
+            transform: scale(1.08);
+            border: 2px solid #124E52;
+            box-shadow: 0 30px 60px rgba(18, 78, 82, 0.25);
+            z-index: 2;
+        }
+
+        /* BADGE */
+        .pricing-card.featured::before {
+            content: "Most Popular";
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #C6A85E;
+            color: white;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #124E52;
+            margin: 16px 0;
+        }
+
+        .pricing-card ul {
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        .custom-navbar {
+            background: rgba(250, 249, 247, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            filter: invert(30%);
+        }
+
+        .nav-link {
+            color: #555 !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #124E52 !important;
+        }
+
+        .nav-cta .btn {
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            border-radius: 30px;
+        }
+
+        .navbar .btn {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 30px;
+        }
+                
+
+        .btn-primary:hover {
+            background: #C6A85E !important;
+            color: #124E52 !important;
+            border: 2px solid #124E52;
+        }
+
+        .navbar-brand.logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #124E52;
+        }
+
+        @media (max-width: 768px) {
+            .navbar .btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .navbar .collapse {
+                background: #FAF9F7;
+                padding: 20px;
+                border-radius: 16px;
+                margin-top: 10px;
+            }
+
+            .navbar-nav {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .logo-hero {
+                width: 250px;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features-grid,
+            .products-grid,
+            .reviews-grid {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features,
+            .how-it-works,
+            .products,
+            .reviews,
+            .pricing,
+            .final-cta {
+                padding: 80px 0;
+            }
+
+            .section-title {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+   <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container">
+            
+            <!-- Logo -->
+            <a class="navbar-brand logo" href="#">
+                MATCHÉ
+            </a>
+
+            <!-- Hamburger Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                
+                <ul class="navbar-nav mx-auto nav-links">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#work">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#product">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#review">Review</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- CTA -->
+                <a href="#" class="btn btn-secondary" onclick="comingSoon()">Login</a>
+                <a href="#" class="btn btn-primary" onclick="comingSoon()">Get Started</a>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Find Your Perfect Match<br>in Beauty & Style</h1>
+                    <p>Scan any product. Describe what you want. Let AI find what suits you.</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary" onclick="comingSoon()">Try Now</a>
+                        <a href="#" class="btn btn-secondary" onclick="comingSoon()">Get Early Access</a>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <img src="pic/Chameleon_Tattoo_Pair-removebg-preview.png" alt="MATCHÉ Logo" class="logo-hero">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Everything You Need</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Scan with Camera</h3>
+                    <p>Point your camera at any product and instantly get AI-powered analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Smart AI Recommendations</h3>
+                    <p>Advanced algorithms understand your preferences and skin type.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Personalized Matching</h3>
+                    <p>Find products that truly match your unique beauty profile.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3>Direct Marketplace Links</h3>
+                    <p>Buy recommended products from trusted retailers instantly.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>AI Beauty Consultation</h3>
+                    <p>Chat with AI to get deeper insights and personalized product advice.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Ingredient Insights</h3>
+                    <p>Understand product ingredients, benefits, and suitability for your skin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="work">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Scan Product</h3>
+                    <p>Use your camera to scan any cosmetic, skincare, or fashion item.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Describe Your Needs</h3>
+                    <p>Tell us what you're looking for in natural language.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Perfect Matches</h3>
+                    <p>Receive personalized recommendations instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Preview -->
+    <section class="products" id="product">
+        <div class="container">
+            <h2 class="section-title">Discover Your Matches</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>AI-Enhanced Serum</h4>
+                        <p>Custom-blended serum for your skin type. Hydrates deeply without irritation.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Perfect Lip Color</h4>
+                        <p>Long-lasting matte lipstick in your ideal shade and finish.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Luxury Foundation</h4>
+                        <p>Breathable, full-coverage foundation with SPF protection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="review">
+        <div class="container">
+            <h2 class="section-title">Loved by Beauty Creators</h2>
+            
+            <div class="reviews-grid">
+                
+                <div class="review-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                    <h4>Riko Amanai</h4>
+                    <p class="role">Content Creator</p>
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+                    <p class="review-text">
+                        "Matche benar-benar membantu banget buat nemuin produk yang cocok. Rasanya kayak punya asisten pribadi yang ngerti kebutuhan kita."
+                    </p>
+                </div>
+
+                <div class="review-card">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="">
+                    <h4>Naoya Zenin</h4>
+                    <p class="role">Product Reviewer</p>
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+                    <p class="review-text">
+                        "Nggak perlu ribet bandingin satu-satu. Matche bantu nyaring pilihan dan kasih rekomendasi yang masuk akal."
+                    </p>
+                </div>
+
+                <div class="review-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                    <h4>Gojo Satoru</h4>
+                    <p class="role">Lifestyle Enthusiast</p>
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+                    <p class="review-text">
+                        "Nggak cuma skincare, buat cari produk fashion juga kepake. Tinggal cocokkan aja sama yang dicari."
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Plan</h2>
+
+            <div class="pricing-grid">
+
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <p class="price">Rp0</p>
+                    <ul>
+                        <li>Scan produk</li>
+                        <li>Rekomendasi dasar</li>
+                        <li>Hasil terbatas</li>
+                        <li>Akses marketplace</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="comingSoon()">Get Started</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <h3>Premium</h3>
+                    <p class="price">Rp39K / bulan</p>
+                    <ul>
+                        <li>AI consultation tanpa batas</li>
+                        <li>Rekomendasi lebih akurat</li>
+                        <li>Insight bahan produk</li>
+                        <li>Save & compare</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="comingSoon()">Upgrade</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Pro</h3>
+                    <p class="price">Rp89K / bulan</p>
+                    <ul>
+                        <li>Semua fitur Premium</li>
+                        <li>Analisis mendalam</li>
+                        <li>Prioritas AI</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="comingSoon()">Go Pro</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Consultation -->
+    <section class="ai-consultation">
+        <div class="container">
+            <h2>Chat with Your AI Beauty Assistant</h2>
+            <p>Get expert advice on routines, ingredients, and combinations. Available 24/7.</p>
+            <a href="#" class="btn btn-primary" onclick="comingSoon()" style="background: #C6A85E; box-shadow: 0 8px 32px rgba(198, 168, 94, 0.3);">Try AI Consultation</a>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <p>"Trusted by beauty enthusiasts and creators"</p>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Start Finding Your Perfect Match Today</h2>
+            <div class="cta-buttons" style="justify-content: center; margin-top: 40px;">
+                <a href="#" class="btn btn-primary" onclick="comingSoon()">Get Started</a>
+                <a href="#" class="btn btn-secondary" onclick="comingSoon()">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4>MATCHÉ</h4>
+                    <p style="color: #A8B4B9; font-size: 0.95rem; margin-bottom: 20px;">AI-powered beauty & style discovery.</p>
+                </div>
+                <div>
+                    <h4>Product</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Download</a>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div>
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MATCHÉ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Global -->
+    <div class="modal fade" id="comingSoonModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px;">
+        
+        <div class="modal-header border-0">
+            <h5 class="modal-title">MATCHÉ</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body text-center">
+            <p style="font-size: 1.1rem; color: #555;">
+            Fitur ini belum tersedia sepenuhnya.<br>
+            Saat ini masih dalam tahap pengembangan.
+            </p>
+        </div>
+
+        <div class="modal-footer border-0 justify-content-center">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            Oke
+            </button>
+        </div>
+
+        </div>
+    </div>
+    </div>
+
+    <script>
+        function comingSoon() {
+            let modal = new bootstrap.Modal(document.getElementById('comingSoonModal'));
+            modal.show();
+        }
+    </script>
+</body>
+</html>
